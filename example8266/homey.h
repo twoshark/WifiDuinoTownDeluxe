@@ -3,35 +3,31 @@
 #include <WiFiManager.h>
 #include <DNSServer.h>
 #include <ESP8266mDNS.h>
-#include <ESP8266WebServer.h>
 #include <ESP8266WiFi.h>
 
-class SetupUtility
+//Who's really got your app? Your Homey does.
+class Homey
 {
 private:
   uint32_t _ESP_ID;
+  WiFiManager _WM;
 
 public:
-  SetupUtility(){
+  Homey()
+  {
     Serial.println("Booting...");
     this->_ESP_ID = ESP.getChipId();
     Serial.print("ESP8266 ID:");
     Serial.println(this->_ESP_ID);
   }
-  
-  void Ota()
+
+  void setup_ota()
   {
-    // OTA things
-    ArduinoOTA.onStart([]() {
-      String type;
-      if (ArduinoOTA.getCommand() == U_FLASH)
-      {
-        type = "sketch";
-      }
-      else
-      { // U_FS
-        type = "filesystem";
-      }
+    // Define OTA Event Handlers
+    ArduinoOTA.onStart([this]() {
+      String type = ArduinoOTA.getCommand() == U_FLASH
+                        ? "sketch"
+                        : "filesystem";
       // NOTE: if updating FS this would be the place to unmount FS using FS.end()
       Serial.println("Start updating " + type);
     });
@@ -43,25 +39,25 @@ public:
     });
     ArduinoOTA.onError([](ota_error_t error) {
       Serial.printf("Error[%u]: ", error);
-      if (error == OTA_AUTH_ERROR)
+      switch (error)
       {
+      case OTA_AUTH_ERROR:
         Serial.println("Auth Failed");
-      }
-      else if (error == OTA_BEGIN_ERROR)
-      {
+        break;
+      case OTA_BEGIN_ERROR:
         Serial.println("Begin Failed");
-      }
-      else if (error == OTA_CONNECT_ERROR)
-      {
+        break;
+      case OTA_CONNECT_ERROR:
         Serial.println("Connect Failed");
-      }
-      else if (error == OTA_RECEIVE_ERROR)
-      {
+        break;
+      case OTA_RECEIVE_ERROR:
         Serial.println("Receive Failed");
-      }
-      else if (error == OTA_END_ERROR)
-      {
+        break;
+      case OTA_END_ERROR:
         Serial.println("End Failed");
+        break;
+      default:
+        break;
       }
     });
     ArduinoOTA.begin();
@@ -70,18 +66,18 @@ public:
     Serial.println(WiFi.localIP());
   }
 
-  void Wifi()
+  void setup_wifi()
   {
-    WiFiManager wifiManager;
+
     //wifiManager.resetSettings();
-    wifiManager.setTimeout(180); // 3min timeout
+    this->_WM.setTimeout(180); // 3min timeout
 
     // Create unique SSID
     char buf[16];
     sprintf(buf, "Frame-AP-%u", this->_ESP_ID);
 
     // Connect to WiFi, create AP if fails, reset if timeout
-    if (!wifiManager.autoConnect(buf))
+    if (!this->_WM.autoConnect(buf))
     {
       Serial.println("failed to connect and hit timeout");
       delay(3000);

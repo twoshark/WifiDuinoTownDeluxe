@@ -1,7 +1,13 @@
-#include "setup_util.h"
+#include "homey.h"
 
-void setup() {
-  SetupUtility setup_util;
-  setup_util.Wifi();
-  setup_util.Ota();
+
+//homey.
+Homey homey;
+
+void setup()
+{
+  homey.setup_wifi();
+  homey.setup_ota();
 }
+
+void loop(){}
