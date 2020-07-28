@@ -10,5 +10,5 @@ void setup()
 }
 
 void loop(){
-  homey.handle_ota():
+  homey.handle_ota();
 }

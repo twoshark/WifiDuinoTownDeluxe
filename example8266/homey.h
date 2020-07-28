@@ -20,7 +20,7 @@ private:
   }
 
   void log(char s[]){
-    //My Homey is a Lumberjack
+    //My Homey is a Lumberjack. Homey makes Logs. 
     Serial.println(HOMEY_SAYS + String(s));
   }
 
@@ -80,8 +80,9 @@ public:
   }
   
   void handle_ota(){
-    log("Begin");
+    log("Begin Over the Air Update:");
     ArduinoOTA.handle();
+    log("OTA Update Complete.");
   }
 
   void setup_wifi()
