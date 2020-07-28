@@ -1,6 +1,5 @@
 #include "homey.h"
 
-
 //homey.
 Homey homey;
 
@@ -10,4 +9,6 @@ void setup()
   homey.setup_ota();
 }
 
-void loop(){}
+void loop(){
+  homey.handle_ota():
+}
