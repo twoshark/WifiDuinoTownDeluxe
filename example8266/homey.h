@@ -86,15 +86,14 @@ public:
     log("OTA Update Complete.");
   }
 
-  void setup_wifi()
+  void setup_wifi(char ssid[])
   {
-
     //wifiManager.resetSettings();
     this->_WM.setTimeout(180); // 3min timeout
 
     // Create unique SSID
     char buf[16];
-    sprintf(buf, "Frame-AP-%u", this->_ESP_ID);
+    sprintf(buf,  + "%s-%u", ssid, this->_ESP_ID);
 
     // Connect to WiFi, create AP if fails, reset if timeout
     if (!this->_WM.autoConnect(buf))
