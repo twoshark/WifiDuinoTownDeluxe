@@ -11,6 +11,7 @@ const String HOMEY_SAYS = "[Homey says]: ";
 class Homey
 {
 private:
+  char _ssid[];
   uint32_t _ESP_ID;
   WiFiManager _WM;
   void log(String s) 

@@ -5,7 +5,7 @@ Homey homey;
 
 void setup()
 {
-  homey.setup_wifi();
+  homey.setup_wifi("WiFi Duino Town Deluxe Model Home Tour");
   homey.setup_ota();
 }
 
