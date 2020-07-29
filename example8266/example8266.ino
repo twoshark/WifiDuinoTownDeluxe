@@ -1,14 +1,14 @@
-#include "homey.h"
+#include "homie.h"
 
-//homey.
-Homey homey;
+//homie.
+Homie homie;
 
 void setup()
 {
-  homey.setup_wifi("WiFi Duino Town Deluxe Model Home Tour");
-  homey.setup_ota();
+  homie.setup_wifi("WiFi Duino Town Deluxe Model Home Tour");
+  homie.setup_ota();
 }
 
 void loop(){
-  homey.handle_ota();
+  homie.handle_ota();
 }

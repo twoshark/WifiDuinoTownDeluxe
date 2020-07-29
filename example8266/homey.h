@@ -6,9 +6,9 @@
 #include <ESP8266WiFi.h>
 #include <string.h>
 
-const String HOMEY_SAYS = "[Homey says]: ";
-//Who's really got your app? Your Homey does.
-class Homey
+const String homie_SAYS = "[homie says]: ";
+//Who's really got your app? Your homie does.
+class Homie
 {
 private:
   char _ssid[];
@@ -17,18 +17,18 @@ private:
   void log(String s) 
   {
     //make a log
-    Serial.println(HOMEY_SAYS + s);
+    Serial.println(homie_SAYS + s);
   }
 
   void log(char s[]){
-    //My Homey is a Lumberjack. Homey makes Logs. 
-    Serial.println(HOMEY_SAYS + String(s));
+    //My homie is a Lumberjack. homie makes Logs. 
+    Serial.println(homie_SAYS + String(s));
   }
 
 public:
-  Homey()
+  Homie()
   {
-    log("I am your Homey. Let Us Begin.");
+    log("I am your homie. Let Us Begin.");
     this->_ESP_ID = ESP.getChipId();
     log("This is where we're at:");
     log("ESP8266 ID:");
