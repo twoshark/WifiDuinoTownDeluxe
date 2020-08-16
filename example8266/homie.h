@@ -6,7 +6,7 @@
 #include <ESP8266WiFi.h>
 #include <string.h>
 
-const String homie_SAYS = "[homie says]: ";
+const String HOMIE_SAYS = "[homie says]: ";
 //Who's really got your app? Your homie does.
 class Homie
 {
@@ -17,17 +17,18 @@ private:
   void log(String s) 
   {
     //make a log
-    Serial.println(homie_SAYS + s);
+    Serial.println(HOMIE_SAYS + s);
   }
 
   void log(char s[]){
     //My homie is a Lumberjack. homie makes Logs. 
-    Serial.println(homie_SAYS + String(s));
+    Serial.println(HOMIE_SAYS + String(s));
   }
 
 public:
   Homie()
   {
+    Serial.begin(115200);
     log("I am your homie. Let Us Begin.");
     this->_ESP_ID = ESP.getChipId();
     log("This is where we're at:");
@@ -76,7 +77,7 @@ public:
     });
     ArduinoOTA.begin();
     log("OTA Ready");
-    Serial.print("IP address: ");
+    log("IP address: ");
     log(WiFi.localIP().toString());
   }
   
@@ -88,7 +89,7 @@ public:
 
   void setup_wifi(char ssid[])
   {
-    //wifiManager.resetSettings();
+    this->_WM.resetSettings();
     this->_WM.setTimeout(180); // 3min timeout
 
     // Create unique SSID
@@ -103,7 +104,7 @@ public:
       //reset and try again, or maybe put it to deep sleep
       ESP.reset();
       while (1)
-        ;
+        delay(1000);
     }
   }
 };
