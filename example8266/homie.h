@@ -14,15 +14,11 @@ private:
   char _ssid[];
   uint32_t _ESP_ID;
   WiFiManager _WM;
-  void log(String s) 
-  {
-    //make a log
+   
+  //Rolls down stairs, alone or in pairs.
+  void log(String s) {
+    //It's Big. It's Heavy. It's Wood.
     Serial.println(HOMIE_SAYS + s);
-  }
-
-  void log(char s[]){
-    //My homie is a Lumberjack. homie makes Logs. 
-    Serial.println(HOMIE_SAYS + String(s));
   }
 
 public:
