@@ -13,4 +13,3 @@ void loop(){
   Serial.println("Hearbeat!");
   homie.handle_ota();
 }
- 
