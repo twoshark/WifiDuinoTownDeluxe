@@ -6,7 +6,9 @@ Homie::Homie(){
   this->_ESP_ID = ESP.getChipId();
   log("This is where we're at:");
   log("ESP8266 ID:");
-  log(String(this->_ESP_ID));
+  char buf[64];
+  sprintf(buf,"%u",this->_ESP_ID);
+  log(buf);
 }
 
 void Homie::setup_ota()
@@ -17,7 +19,7 @@ void Homie::setup_ota()
                         ? "sketch"
                         : "filesystem";
       // NOTE: if updating FS this would be the place to unmount FS using FS.end()
-      log("Start updating " + type);
+      log("Start updating %" + type);
     });
     ArduinoOTA.onEnd([this]() {
       log("\nEnd");
@@ -81,8 +83,17 @@ void Homie::handle_ota(){
     }
   }
 
-  //Rolls down stairs, alone or in pairs.
   void Homie::log(String s) {
     //It's Big. It's Heavy. It's Wood.
+    Serial.println(HOMIE_SAYS + s);
+  }
+
+  void Homie::log(int i){
+    char buf[64];
+    sprintf(buf, "%i", i);
+    Serial.println(HOMIE_SAYS + buf);
+  }
+
+  void Homie::log(char *s){
     Serial.println(HOMIE_SAYS + s);
   }

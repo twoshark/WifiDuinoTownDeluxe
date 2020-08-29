@@ -20,5 +20,7 @@ public:
   void setup_ota();
   void handle_ota();
   void setup_wifi(char ssid[]);
+  void log(int i);
+  void log(char *s);
   void log(String s);
 };
